@@ -22,6 +22,7 @@ variable "domain_name" {
 variable "alt_domain_name" {
   type        = string
   description = "Alternate CNAME domain name, if any"
+  default     = ""
 }
 
 variable "certificate_arn" {

@@ -3,7 +3,7 @@ locals {
 }
 
 resource "aws_cloudfront_distribution" "client_distribution" {
-  aliases     = [var.domain_name, var.alt_domain_name]
+  aliases     = compact([var.domain_name, var.alt_domain_name])
   price_class         = "PriceClass_100"
   enabled             = true
   default_root_object = "index.html"
