@@ -9,11 +9,6 @@ variable "project_name" {
   description = "Project name for all resources"
 }
 
-variable "vpc_id" {
-  type        = string
-  description = "VPC to deploy into"
-}
-
 variable "zone_id" {
   type        = string
   description = "Route53 zone ID"
