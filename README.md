@@ -15,7 +15,7 @@ Resources created:
 * `project_name` - Project name for all resources
 * `zone_id` - Route53 zone ID
 * `domain_name` - Site domain name, matching client_bucket
-* `alt_domain_name` - Alternate CNAME domain name, if any
+* `alt_domain_name` - Alternate CNAME domain name, if any (optional)
 * `certificate_arn` - Certificate ARN in ACM
 
 Note: ACM certificate and Route53 zone must already be created.
@@ -28,7 +28,6 @@ module "main" {
 
   region          = "us-east-1"
   project_name    = "chrislewis.me.uk"
-  vpc_id          = "vpc-c3b70bb9"
   zone_id         = "Z0364635209V10D6CEGE"
   domain_name     = "chrislewis.me.uk"
   alt_domain_name = "www.chrislewis.me.uk"
