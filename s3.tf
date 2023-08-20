@@ -34,3 +34,20 @@ resource "aws_s3_bucket_website_configuration" "bucket_website" {
     suffix = "index.html"
   }
 }
+
+resource "aws_s3_bucket_ownership_controls" "s3_bucket_acl_ownership" {
+  bucket = aws_s3_bucket.client_bucket.id
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+  depends_on = [aws_s3_bucket_public_access_block.access_block]
+}
+
+resource "aws_s3_bucket_public_access_block" "access_block" {
+  bucket = aws_s3_bucket.client_bucket.id
+
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
+}
