@@ -6,6 +6,8 @@ resource "aws_s3_bucket" "client_bucket" {
 resource "aws_s3_bucket_policy" "bucket_policy" {
   bucket = aws_s3_bucket.client_bucket.id
 
+  depends_on = [aws_s3_bucket_ownership_controls.ownership_controls]
+
   policy = <<EOF
 {
   "Version":"2012-10-17",
@@ -25,6 +27,8 @@ EOF
 resource "aws_s3_bucket_acl" "bucket_acl" {
   bucket = aws_s3_bucket.client_bucket.id
   acl    = "public-read"
+
+  depends_on = [aws_s3_bucket_ownership_controls.ownership_controls]
 }
 
 resource "aws_s3_bucket_website_configuration" "bucket_website" {
@@ -35,11 +39,13 @@ resource "aws_s3_bucket_website_configuration" "bucket_website" {
   }
 }
 
-resource "aws_s3_bucket_ownership_controls" "s3_bucket_acl_ownership" {
+resource "aws_s3_bucket_ownership_controls" "ownership_controls" {
   bucket = aws_s3_bucket.client_bucket.id
+
   rule {
     object_ownership = "BucketOwnerPreferred"
   }
+
   depends_on = [aws_s3_bucket_public_access_block.access_block]
 }
 
