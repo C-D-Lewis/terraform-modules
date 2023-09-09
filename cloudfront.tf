@@ -34,7 +34,7 @@ resource "aws_cloudfront_distribution" "client_distribution" {
 
   logging_config {
     include_cookies = false
-    bucket          = var.logs_bucket
+    bucket          = "${var.logs_bucket}.s3.amazonaws.com"
     prefix          = var.domain_name
   }
 
