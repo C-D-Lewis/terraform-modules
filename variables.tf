@@ -29,3 +29,8 @@ variable "certificate_arn" {
   type        = string
   description = "Certificate ARN in ACM"
 }
+
+variable "logs_bucket" {
+  type        = string
+  description = "Name of the S3 bucket to use to store logs"
+}

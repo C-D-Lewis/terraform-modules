@@ -30,6 +30,12 @@ resource "aws_cloudfront_distribution" "client_distribution" {
         forward = "none"
       }
     }
+
+    logging_config {
+      include_cookies = false
+      bucket          = var.logs_bucket
+      prefix          = var.domain_name
+    }
   }
 
   restrictions {
