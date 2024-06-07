@@ -25,7 +25,7 @@ Note: ACM certificate and Route53 zone must already be created.
 
 ```hcl
 module "main" {
-  source = "github.com/c-d-lewis/terraform-s3-cloudfront-website?ref=master"
+  source = "github.com/c-d-lewis/terraform-modules//s3-cloudfront-website?ref=master"
 
   region          = "us-east-1"
   project_name    = "chrislewis.me.uk"
