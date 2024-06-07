@@ -1,4 +1,4 @@
-# terraform-s3-cloudfront-website
+# s3-cloudfront-website
 
 Terraform module to create resources for an S3 bucket website behind a
 CloudFront distribution.
