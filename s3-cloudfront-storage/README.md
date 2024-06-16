@@ -12,6 +12,7 @@ Resources created:
 
 * `region` - AWS region
 * `bucket_name` - Bucket name to use
+* `cache_forever` - Cache files forever.
 
 ## Example
 

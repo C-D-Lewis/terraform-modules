@@ -8,3 +8,9 @@ variable "bucket_name" {
   type        = string
   description = "Site domain name, matching storage_bucket"
 }
+
+variable "cache_forever" {
+  type        = bool
+  description = "Cache files forever"
+  default     = false
+}

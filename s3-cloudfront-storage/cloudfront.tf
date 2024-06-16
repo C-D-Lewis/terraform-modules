@@ -1,5 +1,6 @@
 locals {
   origin_id = "${var.bucket_name}-Origin"
+  one_year  = 31536000
 }
 
 resource "aws_cloudfront_distribution" "storage_distribution" {
@@ -18,9 +19,9 @@ resource "aws_cloudfront_distribution" "storage_distribution" {
     allowed_methods        = ["GET", "HEAD", "OPTIONS"]
     cached_methods         = ["GET", "HEAD", "OPTIONS"]
     target_origin_id       = local.origin_id
-    min_ttl                = 0
-    default_ttl            = 86400
-    max_ttl                = 31536000
+    min_ttl                = var.cache_forever ? local.one_year : 0
+    default_ttl            = var.cache_forever ? local.one_year : 86400
+    max_ttl                = local.one_year
 
     forwarded_values {
       query_string = true
