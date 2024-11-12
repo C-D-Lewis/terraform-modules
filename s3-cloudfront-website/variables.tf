@@ -36,8 +36,8 @@ variable "logs_bucket" {
   default     = "chrislewis-cloudwatch-logs"
 }
 
-variable "index_document" {
+variable "default_root_object" {
   type        = string
-  description = "Index file for S3 bucket website configuration"
+  description = "Index file for CloudFront distribution"
   default     = "index.html"
 }

@@ -6,7 +6,7 @@ resource "aws_cloudfront_distribution" "client_distribution" {
   aliases             = compact([var.domain_name, var.alt_domain_name])
   price_class         = "PriceClass_100"
   enabled             = true
-  default_root_object = "index.html"
+  default_root_object = var.default_root_object
 
   origin {
     domain_name = aws_s3_bucket.client_bucket.bucket_regional_domain_name
