@@ -35,3 +35,9 @@ variable "logs_bucket" {
   description = "Name of the S3 bucket to use to store logs"
   default     = "chrislewis-cloudwatch-logs"
 }
+
+variable "index_document" {
+  type        = string
+  description = "Index file for S3 bucket website configuration"
+  default     = "index.html"
+}
