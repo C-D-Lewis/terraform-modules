@@ -1,14 +1,17 @@
-data "aws_ecr_repository" "selected" {
-  name = var.ecr_name
+resource "aws_ecr_repository" "repository" {
+  name                 = "${var.service_name}-ecr"
+  image_tag_mutability = "MUTABLE"
+
+  force_delete = true
 }
 
-data "aws_ecs_cluster" "selected" {
-  cluster_name = var.cluster_name
+resource "aws_ecs_cluster" "cluster" {
+  name = "${var.service_name}-cluster"
 }
 
 resource "aws_ecs_service" "ecs_service" {
   name                 = "${var.service_name}-ecs-service"
-  cluster              = data.aws_ecs_cluster.selected.id
+  cluster              = aws_ecs_cluster.cluster.id
   task_definition      = aws_ecs_task_definition.task_definition.arn
   desired_count        = 1
   launch_type          = "FARGATE"
@@ -41,7 +44,7 @@ resource "aws_ecs_task_definition" "task_definition" {
 [
   { 
     "name": "${var.service_name}-container",
-    "image": "${data.aws_ecr_repository.selected.repository_url}:latest",
+    "image": "${aws_ecr_repository.repository.repository_url}:latest",
     "cpu": ${var.container_cpu},
     "memory": ${var.container_memory},
     "essential": true,

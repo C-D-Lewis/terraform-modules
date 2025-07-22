@@ -5,6 +5,8 @@ Terraform module to create resources for a public Fargate ECS service.
 Resources created:
 
 * `aws_cloudwatch_log_group.log_group`
+* `aws_ecr_repository.repository`
+* `aws_ecs_cluster.cluster`
 * `aws_ecs_service.ecs_service`
 * `aws_ecs_task_definition.task_definition`
 * `aws_iam_role.ecs_task_execution_role`
@@ -16,6 +18,7 @@ Resources created:
 * `aws_lb_target_group.target_group`
 * `aws_route53_record.server_record`
 * `aws_security_group.security_group`
+
 
 
 ## Variables
@@ -43,8 +46,6 @@ module "test" {
   service_name     = "test-service"
   container_cpu    = 512
   container_memory = 1024
-  ecr_name         = "test-ecr"
-  cluster_name     = "test-cluster"
   port             = 80
   vpc_id           = "vpc-c3b70bb9"
   certificate_arn  = "arn:aws:acm:us-east-1:617929423658:certificate/a69e6906-579e-431d-9e4c-707877d325b7"

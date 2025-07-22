@@ -21,16 +21,6 @@ variable "container_memory" {
   default     = 1024
 }
 
-variable "ecr_name" {
-  type        = string
-  description = "Name of the ECR repository for the service image"
-}
-
-variable "cluster_name" {
-  type        = string
-  description = "Name of the ECS cluster to place tasks in"
-}
-
 variable "port" {
   type        = number
   description = "Port on which the service will listen"

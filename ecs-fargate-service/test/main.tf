@@ -26,11 +26,24 @@ module "test" {
   service_name     = "test-service"
   container_cpu    = 512
   container_memory = 1024
-  ecr_name         = "test-ecr"
-  cluster_name     = "test-cluster"
   port             = 80
   vpc_id           = "vpc-c3b70bb9"
   certificate_arn  = "arn:aws:acm:us-east-1:617929423658:certificate/a69e6906-579e-431d-9e4c-707877d325b7"
   route53_zone_id  = "Z05682866H59A0KFT8S"
   route53_domain_name = "chrislewis.me.uk"
+}
+
+output "service_dns" {
+  value       = module.test.service_dns
+  description = "DNS record for the ECS service"
+}
+
+output "ecr_name" {
+  value       = module.test.ecr_name
+  description = "ECR repository name for the ECS service"
+}
+
+output "ecr_uri" {
+  value       = module.test.ecr_uri
+  description = "ECR repository URI for the ECS service"
 }
