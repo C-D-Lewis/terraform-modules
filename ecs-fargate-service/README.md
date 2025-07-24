@@ -20,20 +20,24 @@ Resources created:
 * `aws_security_group.security_group`
 
 
-
 ## Variables
 
 * `region` - AWS region
 * `service_name` - Name of the ECS service
 * `container_cpu` - CPU units for the Fargate task
 * `container_memory` - Memory in MiB for the Fargate task
-* `ecr_name` - Name of the ECR repository for the service image
-* `cluster_name` - Name of the ECS cluster to place tasks in
 * `port` - Port on which the service will listen
 * `vpc_id` - VPC ID where the ECS service will run
 * `certificate_arn` - ARN of the SSL certificate for the ALB
 * `route53_zone_id` - Route53 zone ID for DNS records
 * `route53_domain_name` - Domain name for the Route53 record
+
+
+## Outputs
+
+* `service_dns` - DNS record for the ECS service
+* `ecr_name` - ECR repository name for the ECS service
+* `ecr_uri` - ECR repository URI for the ECS service
 
 
 ## Example

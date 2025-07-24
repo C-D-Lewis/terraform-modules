@@ -21,6 +21,10 @@ Resources created:
 
 Note: ACM certificate and Route53 zone must already be created.
 
+## Outputs
+
+* `website_domain_name` - Domain of the website.
+
 ## Example
 
 ```hcl
@@ -33,6 +37,6 @@ module "main" {
   domain_name     = "chrislewis.me.uk"
   alt_domain_name = "www.chrislewis.me.uk"
   certificate_arn = "arn:aws:acm:us-east-1:617912924158:certificate/72e3a39b-e701-4269-b429-af2a6a1432b9"
-  logs_bucket     = "chrislewis-cloudwatch-logs"
+  logs_bucket     = "chrislewis-example-logs"
 }
 ```

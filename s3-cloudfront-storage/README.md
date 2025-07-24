@@ -14,6 +14,10 @@ Resources created:
 * `bucket_name` - Bucket name to use
 * `cache_forever` - Cache files forever.
 
+## Outputs
+
+* `storage_distribution_domain` - Domain of the storage.
+
 ## Example
 
 ```hcl

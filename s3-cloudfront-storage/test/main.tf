@@ -25,3 +25,7 @@ module "test" {
   region = "us-east-1"
   bucket_name = "terraform-s3-cloudfront-storage-test"
 }
+
+output "storage_distribution_domain" {
+  value = module.test.storage_distribution_domain
+}
