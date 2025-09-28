@@ -2,6 +2,8 @@
 
 Terraform module to create resources for a public Fargate ECS service.
 
+Optionally, an EFS volume can be attached
+
 Resources created:
 
 * `aws_cloudwatch_log_group.log_group`

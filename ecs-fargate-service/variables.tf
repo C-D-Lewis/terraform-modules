@@ -46,3 +46,8 @@ variable "route53_domain_name" {
   type        = string
   description = "Domain name for the Route53 record"
 }
+
+variable "create_efs" {
+  type        = bool
+  description = "Whether to create the EFS for the task"
+}

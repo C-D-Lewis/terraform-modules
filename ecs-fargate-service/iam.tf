@@ -45,14 +45,14 @@ resource "aws_iam_role_policy" "ecs_task_role_policy" {
 
   # TODO: Add permissions from variable as a module input
   policy = jsonencode({
-    "Version": "2012-10-17",
-    "Statement": [
+    "Version" : "2012-10-17",
+    "Statement" : [
       {
-        "Effect": "Allow",
-        "Action": [
+        "Effect" : "Allow",
+        "Action" : [
           "s3:List*"
         ],
-        "Resource": "*"
+        "Resource" : "*"
       }
     ]
   })

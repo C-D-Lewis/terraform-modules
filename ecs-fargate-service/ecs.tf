@@ -40,29 +40,46 @@ resource "aws_ecs_task_definition" "task_definition" {
   memory                   = var.container_memory
   requires_compatibilities = ["FARGATE"]
 
-  container_definitions = <<TASK_DEFINITION
-[
-  { 
-    "name": "${var.service_name}-container",
-    "image": "${aws_ecr_repository.repository.repository_url}:latest",
-    "cpu": ${var.container_cpu},
-    "memory": ${var.container_memory},
-    "essential": true,
-    "environment": [],
-    "portMappings": [{
-      "protocol": "tcp",
-      "containerPort": ${var.port},
-      "hostPort": ${var.port}
-    }],
-    "logConfiguration": { 
-      "logDriver": "awslogs",
-      "options": { 
-        "awslogs-group" : "/aws/ecs/${var.service_name}-logs",
-        "awslogs-region": "us-east-1",
-        "awslogs-stream-prefix": "ecs"
+  dynamic "volume" {
+    for_each = var.create_efs ? [1] : []
+
+    content {
+      name = "service-storage"
+
+      efs_volume_configuration {
+        file_system_id = aws_efs_file_system.efs[0].id
       }
     }
   }
-]
-TASK_DEFINITION
+
+  container_definitions = jsonencode([
+    {
+      name        = "${var.service_name}-container",
+      image       = "${aws_ecr_repository.repository.repository_url}:latest",
+      cpu         = var.container_cpu,
+      memory      = var.container_memory,
+      essential   = true,
+      environment = [],
+      portMappings = [{
+        protocol      = "tcp",
+        containerPort = var.port,
+        hostPort      = var.port
+      }],
+      logConfiguration = {
+        logDriver = "awslogs",
+        options = {
+          "awslogs-group"         = "/aws/ecs/${var.service_name}-logs",
+          "awslogs-region"        = "us-east-1",
+          "awslogs-stream-prefix" = "ecs"
+        }
+      },
+
+      mountPoints = var.create_efs ? [
+        {
+          sourceVolume  = "service-storage",
+          containerPath = "/var/data/efs"
+        }
+      ] : []
+    }
+  ])
 }

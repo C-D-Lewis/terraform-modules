@@ -1,3 +1,3 @@
-FROM ealen/echo-server
+FROM alpine:latest
 
-# No additional instructions needed for a simple test
+CMD ["/bin/sh", "-c", "df -h && sleep 600"]
