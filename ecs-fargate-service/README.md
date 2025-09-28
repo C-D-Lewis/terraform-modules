@@ -2,7 +2,7 @@
 
 Terraform module to create resources for a public Fargate ECS service.
 
-Optionally, an EFS volume can be attached
+Optionally, an EFS volume can be attached on `/var/data/efs`
 
 Resources created:
 
@@ -20,6 +20,12 @@ Resources created:
 * `aws_lb_target_group.target_group`
 * `aws_route53_record.server_record`
 * `aws_security_group.security_group`
+
+Optionally:
+
+* `aws_efs_file_system`
+* `aws_efs_file_system_policy`
+* `aws_efs_mount_target` (multiple)
 
 
 ## Variables
