@@ -17,7 +17,6 @@ resource "aws_ecs_service" "ecs_service" {
   launch_type          = "FARGATE"
   force_new_deployment = true
 
-  # TODO: Ability to share the load balancer with other services
   load_balancer {
     target_group_arn = aws_lb_target_group.target_group.arn
     container_name   = "${var.service_name}-container"
@@ -47,7 +46,13 @@ resource "aws_ecs_task_definition" "task_definition" {
       name = "service-storage"
 
       efs_volume_configuration {
-        file_system_id = aws_efs_file_system.efs[0].id
+        file_system_id     = aws_efs_file_system.efs[0].id
+        transit_encryption = "ENABLED"
+        root_directory     = "/root"
+
+        authorization_config {
+          access_point_id = aws_efs_access_point.docker_ap.id
+        }
       }
     }
   }

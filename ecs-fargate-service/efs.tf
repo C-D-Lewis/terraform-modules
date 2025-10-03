@@ -39,3 +39,22 @@ resource "aws_efs_file_system_policy" "policy" {
   file_system_id = aws_efs_file_system.efs[count.index].id
   policy         = data.aws_iam_policy_document.efs_policy[count.index].json
 }
+
+resource "aws_efs_access_point" "docker_ap" {
+  file_system_id = aws_efs_file_system.efs[0].id
+
+  posix_user {
+    uid = 0
+    gid = 0
+  }
+
+  root_directory {
+    path = "/root"
+
+    creation_info {
+      owner_uid   = 0
+      owner_gid   = 0
+      permissions = "777"
+    }
+  }
+}
