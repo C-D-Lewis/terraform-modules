@@ -13,6 +13,11 @@ resource "aws_lb_target_group" "target_group" {
   target_type = "ip"
   vpc_id      = data.aws_vpc.selected.id
 
+  # TODO: Add health check configuration to module
+  health_check {
+    enabled = var.enable_health_check
+  }
+
   depends_on = [aws_lb.alb]
 }
 

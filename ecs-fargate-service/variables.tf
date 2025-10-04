@@ -51,3 +51,9 @@ variable "create_efs" {
   type        = bool
   description = "Whether to create the EFS for the task"
 }
+
+variable "enable_health_check" {
+  type        = bool
+  description = "Whether to enable health checks on the target group"
+  default     = true
+}
