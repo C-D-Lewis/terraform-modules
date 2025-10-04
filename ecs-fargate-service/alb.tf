@@ -31,6 +31,7 @@ resource "aws_lb_target_group" "target_group" {
 resource "aws_lb_listener" "server_alb_listener" {
   load_balancer_arn = aws_lb.alb.arn
   port              = var.port
+  # TODO: ALB might not work for Minecraft, may need Network LB?
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
   certificate_arn   = var.certificate_arn
