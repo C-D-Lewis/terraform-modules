@@ -59,7 +59,7 @@ resource "aws_ecs_task_definition" "task_definition" {
         root_directory     = "/root"
 
         authorization_config {
-          access_point_id = aws_efs_access_point.docker_ap.id
+          access_point_id = aws_efs_access_point.docker_ap[0].id
         }
       }
     }
