@@ -17,6 +17,10 @@ resource "aws_ecs_service" "ecs_service" {
   launch_type          = "FARGATE"
   force_new_deployment = true
 
+  # Prevent 2/1 during deployment, in future may want the default settings (min 100% for availability)
+  deployment_maximum_percent = 100
+  deployment_minimum_healthy_percent = 0
+
   load_balancer {
     target_group_arn = aws_lb_target_group.target_group.arn
     container_name   = "${var.service_name}-container"
@@ -27,6 +31,10 @@ resource "aws_ecs_service" "ecs_service" {
     security_groups  = [aws_security_group.security_group.id]
     subnets          = data.aws_subnets.selected.ids
     assign_public_ip = true
+  }
+
+  deployment_controller {
+    type = "ECS"
   }
 }
 
