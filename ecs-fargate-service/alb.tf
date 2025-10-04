@@ -27,9 +27,10 @@ resource "aws_lb_target_group" "target_group" {
   depends_on = [aws_lb.alb]
 }
 
+# Use application port
 resource "aws_lb_listener" "server_alb_listener" {
   load_balancer_arn = aws_lb.alb.arn
-  port              = 443
+  port              = var.port
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
   certificate_arn   = var.certificate_arn
