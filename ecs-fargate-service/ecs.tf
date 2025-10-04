@@ -77,6 +77,10 @@ resource "aws_ecs_task_definition" "task_definition" {
         protocol      = "tcp",
         containerPort = var.port,
         hostPort      = var.port
+      }, {
+        protocol      = "tcp",
+        containerPort = var.health_check_port,
+        hostPort      = var.health_check_port
       }],
       logConfiguration = {
         logDriver = "awslogs",
