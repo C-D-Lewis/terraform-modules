@@ -52,8 +52,7 @@ variable "create_efs" {
   description = "Whether to create the EFS for the task"
 }
 
-variable "enable_health_check" {
-  type        = bool
-  description = "Whether to enable health checks on the target group"
-  default     = true
+variable "health_check_port" {
+  type        = number
+  description = "Port for health checks"
 }

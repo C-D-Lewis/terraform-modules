@@ -15,7 +15,13 @@ resource "aws_lb_target_group" "target_group" {
 
   # TODO: Add health check configuration to module
   health_check {
-    enabled = var.enable_health_check
+    interval            = 30
+    path                = "/"
+    port                = var.health_check_port
+    protocol            = "HTTP"
+    timeout             = 5
+    healthy_threshold   = 5
+    unhealthy_threshold = 2
   }
 
   depends_on = [aws_lb.alb]
