@@ -50,7 +50,8 @@ resource "aws_iam_role_policy" "ecs_task_role_policy" {
       {
         "Effect" : "Allow",
         "Action" : [
-          "s3:List*"
+          "s3:List*",
+          "s3:GetObject"
         ],
         "Resource" : "*"
       }
