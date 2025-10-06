@@ -41,7 +41,7 @@ resource "aws_efs_file_system_policy" "policy" {
 }
 
 resource "aws_efs_access_point" "docker_ap" {
-  count = var.create_efs ? 1 : 0
+  count          = var.create_efs ? 1 : 0
   file_system_id = aws_efs_file_system.efs[0].id
 
   posix_user {

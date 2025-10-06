@@ -24,7 +24,6 @@ variable "container_memory" {
 variable "port" {
   type        = number
   description = "Port on which the service will listen"
-  default     = 8000
 }
 
 variable "vpc_id" {

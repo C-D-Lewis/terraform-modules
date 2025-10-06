@@ -18,6 +18,11 @@ resource "aws_iam_role" "ecs_task_execution_role" {
 EOF
 }
 
+resource "aws_iam_role_policy_attachment" "ecs-task-execution-role-attachment" {
+  role       = aws_iam_role.ecs_task_execution_role.id
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+}
+
 resource "aws_iam_role" "ecs_task_role" {
   name = "${var.service_name}-task-role"
 
@@ -59,7 +64,7 @@ resource "aws_iam_role_policy" "ecs_task_role_policy" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "ecs-task-execution-role-attachment" {
-  role       = aws_iam_role.ecs_task_execution_role.id
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+resource "aws_iam_role_policy_attachment" "ecs_exec_ssm" {
+  role       = aws_iam_role.ecs_task_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
 }

@@ -1,3 +1,10 @@
 FROM alpine:latest
 
-CMD ["/bin/sh", "-c", "df -h && echo 'hello world' > /var/data/efs/hello && cat /var/data/efs/hello && sleep 600"]
+# Install python3 and dependencies
+RUN apk --no-cache add python3 py3-pip
+RUN python3 --version || exit 1
+
+WORKDIR /app
+ADD ./run.sh /app/run.sh
+
+CMD ["/bin/sh", "/app/run.sh"]

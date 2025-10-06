@@ -10,15 +10,19 @@ resource "aws_ecs_cluster" "cluster" {
 }
 
 resource "aws_ecs_service" "ecs_service" {
-  name                 = "${var.service_name}-ecs-service"
-  cluster              = aws_ecs_cluster.cluster.id
-  task_definition      = aws_ecs_task_definition.task_definition.arn
-  desired_count        = 1
-  launch_type          = "FARGATE"
-  force_new_deployment = true
+  name                   = "${var.service_name}-ecs-service"
+  cluster                = aws_ecs_cluster.cluster.id
+  task_definition        = aws_ecs_task_definition.task_definition.arn
+  desired_count          = 1
+  launch_type            = "FARGATE"
+  force_new_deployment   = true
+  enable_execute_command = true
 
   # Prevent 2/1 during deployment, in future may want the default settings (min 100% for availability)
-  deployment_maximum_percent = 100
+  deployment_controller {
+    type = "ECS"
+  }
+  deployment_maximum_percent         = 100
   deployment_minimum_healthy_percent = 0
 
   load_balancer {
@@ -31,10 +35,6 @@ resource "aws_ecs_service" "ecs_service" {
     security_groups  = [aws_security_group.security_group.id]
     subnets          = data.aws_subnets.selected.ids
     assign_public_ip = true
-  }
-
-  deployment_controller {
-    type = "ECS"
   }
 }
 
@@ -77,7 +77,7 @@ resource "aws_ecs_task_definition" "task_definition" {
         protocol      = "tcp",
         containerPort = var.port,
         hostPort      = var.port
-      }, {
+        }, {
         protocol      = "tcp",
         containerPort = var.health_check_port,
         hostPort      = var.health_check_port
