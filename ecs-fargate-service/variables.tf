@@ -54,4 +54,15 @@ variable "create_efs" {
 variable "health_check_port" {
   type        = number
   description = "Port for health checks"
+  default     = null
+}
+
+variable "create_alb" {
+  type        = bool
+  description = "Whether to create an Application Load Balancer"
+}
+
+variable "create_nlb" {
+  type        = bool
+  description = "Whether to create a Network Load Balancer"
 }

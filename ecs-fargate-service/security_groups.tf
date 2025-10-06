@@ -27,12 +27,16 @@ resource "aws_security_group" "security_group" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  ingress {
-    description = "Allow healthcheck port"
-    from_port   = var.health_check_port
-    to_port     = var.health_check_port
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+  dynamic "ingress" {
+    for_each = var.health_check_port != null ? [1] : []
+
+    content {
+      description = "Allow healthcheck port"
+      from_port   = var.health_check_port
+      to_port     = var.health_check_port
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
   }
 
   egress {

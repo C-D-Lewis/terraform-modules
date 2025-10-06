@@ -26,7 +26,7 @@ resource "aws_ecs_service" "ecs_service" {
   deployment_minimum_healthy_percent = 0
 
   load_balancer {
-    target_group_arn = aws_lb_target_group.target_group.arn
+    target_group_arn = var.create_alb ? aws_lb_target_group.alb_target_group[0].arn : aws_lb_target_group.nlb_target_group[0].arn
     container_name   = "${var.service_name}-container"
     container_port   = var.port
   }
@@ -73,15 +73,22 @@ resource "aws_ecs_task_definition" "task_definition" {
       memory      = var.container_memory,
       essential   = true,
       environment = [],
-      portMappings = [{
-        protocol      = "tcp",
-        containerPort = var.port,
-        hostPort      = var.port
-        }, {
-        protocol      = "tcp",
-        containerPort = var.health_check_port,
-        hostPort      = var.health_check_port
-      }],
+      portMappings = concat(
+        [
+          {
+            protocol      = "tcp",
+            containerPort = var.port,
+            hostPort      = var.port
+          }
+        ],
+        var.health_check_port != null ? [
+          {
+            protocol      = "tcp",
+            containerPort = var.health_check_port,
+            hostPort      = var.health_check_port
+          }
+        ] : []
+      ),
       logConfiguration = {
         logDriver = "awslogs",
         options = {

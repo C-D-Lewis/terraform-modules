@@ -4,8 +4,8 @@ resource "aws_route53_record" "server_record" {
   type    = "A"
 
   alias {
-    name                   = aws_lb.alb.dns_name
-    zone_id                = aws_lb.alb.zone_id
+    name                   = var.create_alb ? aws_lb.alb[0].dns_name : aws_lb.nlb[0].dns_name
+    zone_id                = var.create_alb ? aws_lb.alb[0].zone_id : aws_lb.nlb[0].zone_id
     evaluate_target_health = false
   }
 }

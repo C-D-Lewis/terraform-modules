@@ -15,9 +15,6 @@ Resources created:
 * `aws_iam_role.ecs_task_role`
 * `aws_iam_role_policy.ecs_task_role_policy`
 * `aws_iam_role_policy_attachment.ecs-task-execution-role-attachment`
-* `aws_lb.alb`
-* `aws_lb_listener.server_alb_listener`
-* `aws_lb_target_group.target_group`
 * `aws_route53_record.server_record`
 * `aws_security_group.security_group`
 
@@ -27,6 +24,9 @@ Optionally:
 * `aws_efs_file_system_policy`
 * `aws_efs_mount_target` (multiple)
 * `aws_efs_access_point`
+* `aws_lb.alb`
+* `aws_lb_listener.server_alb_listener`
+* `aws_lb_target_group.target_group`
 
 
 ## Variables

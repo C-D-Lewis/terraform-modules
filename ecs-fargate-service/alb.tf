@@ -1,4 +1,6 @@
 resource "aws_lb" "alb" {
+  count = var.create_alb ? 1 : 0
+
   name               = "${var.service_name}-alb"
   internal           = false
   load_balancer_type = "application"
@@ -6,7 +8,9 @@ resource "aws_lb" "alb" {
   subnets            = data.aws_subnets.selected.ids
 }
 
-resource "aws_lb_target_group" "target_group" {
+resource "aws_lb_target_group" "alb_target_group" {
+  count = var.create_alb ? 1 : 0
+
   name        = "${var.service_name}-tg"
   port        = var.port
   protocol    = "HTTP"
@@ -17,7 +21,7 @@ resource "aws_lb_target_group" "target_group" {
   health_check {
     interval            = 30
     path                = "/"
-    port                = var.health_check_port
+    port                = var.health_check_port != null ? tostring(var.health_check_port) : "traffic-port"
     protocol            = "HTTP"
     timeout             = 5
     healthy_threshold   = 5
@@ -29,7 +33,9 @@ resource "aws_lb_target_group" "target_group" {
 
 # Use application port
 resource "aws_lb_listener" "server_alb_listener" {
-  load_balancer_arn = aws_lb.alb.arn
+  count = var.create_alb ? 1 : 0
+
+  load_balancer_arn = aws_lb.alb[0].arn
   port              = var.port
   # TODO: ALB might not work for Minecraft, may need Network LB?
   protocol        = "HTTPS"
@@ -38,6 +44,6 @@ resource "aws_lb_listener" "server_alb_listener" {
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.target_group.arn
+    target_group_arn = aws_lb_target_group.alb_target_group[0].arn
   }
 }
