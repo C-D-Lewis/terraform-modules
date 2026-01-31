@@ -32,8 +32,8 @@ variable "certificate_arn" {
 
 variable "logs_bucket" {
   type        = string
-  description = "Name of the S3 bucket to use to store logs"
-  default     = "chrislewis-cloudwatch-logs"
+  description = "Name of the S3 bucket to use to store logs, if required"
+  default     = ""
 }
 
 variable "default_root_object" {
