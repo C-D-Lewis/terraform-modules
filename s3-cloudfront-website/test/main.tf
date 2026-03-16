@@ -32,3 +32,7 @@ module "test" {
 output "website_domain_name" {
   value = module.test.website_domain_name
 }
+
+output "distribution_id" {
+  value = module.test.distribution_id
+}
